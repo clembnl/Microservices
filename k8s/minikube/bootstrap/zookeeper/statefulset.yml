@@ -1,0 +1,17 @@
+apiVersion: apps/v1beta1
+kind: StatefulSet
+metadata:
+  name: zookeeper
+spec:
+  serviceName: zookeeper
+  replicas: 1
+  selector:
+    matchLabels:
+      app: zookeeper
+  template:
+    spec:
+      containers:
+      - name: zookeeper
+        image: confluentinc/cp-zookeeper:latest
+        ports:
+        - containerPort: 2181

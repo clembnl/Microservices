@@ -1,0 +1,26 @@
+apiVersion: apps/v1beta1
+kind: StatefulSet
+metadata:
+  name: kafka
+spec:
+  serviceName: kafka
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kafka
+  template:
+    spec:
+      containers:
+      - name: kafka
+        image: confluentinc/cp-kafka:latest
+        ports:
+        - containerPort: 9092
+        env:
+        - name: KAFKA_ADVERTISED_PORT
+          value: "9092"
+        - name: KAFKA_ADVERTISED_HOST_NAME
+          value: "load-balancer URL"
+        - name: KAFKA_ZOOKEEPER_CONNECT
+          value: zookeeper:2181
+        - name: KAFKA_BROKER_ID
+          value: "1"
